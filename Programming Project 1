@@ -1,0 +1,21 @@
+# Truth Table Generator 
+# Mark George
+# COMPSCI4
+
+#truth table function
+def truth_table():
+    print("A | B | A AND B | A OR B | NOT A")
+    print("-------------------------------")
+
+    # possible combos
+    for A in [0, 1]:
+        for B in [0, 1]:
+          # finds the logical computations
+            and_result = A and B
+            or_result = A or B
+            not_a = not A
+
+            # print results in table
+            print(f"{A} | {B} |    {and_result}    |   {or_result}   |   {int(not_a)}")
+
+truth_table()
