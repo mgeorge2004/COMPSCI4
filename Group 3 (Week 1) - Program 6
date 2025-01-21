@@ -1,0 +1,12 @@
+# Program 6: Write a program that calculates and prints the number of minutes in a year. 
+# Mark George (Group 3)
+
+# create/instantiate variables
+minutes_per_hour = 60
+hours_per_day = 24
+days_per_year = 365
+
+# combine 
+minutes_per_year = minutes_per_hour * hours_per_day * days_per_year
+
+print("Number of minutes in a year:", minutes_per_year)
