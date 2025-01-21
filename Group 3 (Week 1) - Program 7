@@ -1,0 +1,16 @@
+# Program 7: Light travels at 3 * 108 meters per second. A light-year is the distance a light beam travels in one year. 
+# Write a program that calculates and displays the value of a light-year. 
+# Mark George (Group 3)
+
+# create/instantiate variables
+speed_of_light = 3 * 10**8  # this is the speed of light in m/s
+seconds_per_minute = 60
+minutes_per_hour = 60
+hours_per_day = 24
+days_per_year = 365
+
+# calculations
+seconds_per_year = seconds_per_minute * minutes_per_hour * hours_per_day * days_per_year
+light_year = speed_of_light * seconds_per_year
+
+print("Value of a light-year (in meters):", light_year)
