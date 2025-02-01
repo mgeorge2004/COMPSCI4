@@ -1,0 +1,45 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.children = []
+        self.parent = None
+
+    def add_child(self, child):
+        child.parent = self
+        self.children.append(child)
+
+    def print_tree(self, level=0):
+        print(" " * level * 2 + str(self.data))  # Indentation for better visualization
+        for child in self.children:
+            child.print_tree(level + 1)
+
+
+# Creating the tree
+def build_tree():
+    root = Node("Electronics")
+
+    laptop = Node("Laptop")
+    laptop.add_child(Node("MacBook"))
+    laptop.add_child(Node("ThinkPad"))
+    laptop.add_child(Node("Surface"))
+
+    phone = Node("Phone")
+    phone.add_child(Node("iPhone"))
+    phone.add_child(Node("Samsung"))
+    phone.add_child(Node("OnePlus"))
+
+    tv = Node("Television")
+    tv.add_child(Node("Samsung"))
+    tv.add_child(Node("Sony"))
+    tv.add_child(Node("LG"))
+
+    root.add_child(laptop)
+    root.add_child(phone)
+    root.add_child(tv)
+
+    return root
+
+
+if __name__ == "__main__":
+    tree = build_tree()
+    tree.print_tree()
