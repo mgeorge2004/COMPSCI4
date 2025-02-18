@@ -32,54 +32,45 @@ def hangman_game():
 
     print('_ ' * len(word))  # Display blanks for the word
 
-    playing = True
-    letterGuessed = ''
-    chances = len(word) + 2
-    correct = 0
-    flag = 0
+    letterGuessed = set()
+    chances = len(word) + 2  # You get word length + 2 chances
+    correct_letters = set(word)
 
-    try:
-        while (chances > 0) and flag == 0:
-            print()
-            chances -= 1
-            guess = input('Enter a letter to guess: ').strip().lower()
+    while chances > 0:
+        print("\nChances left:", chances)
+        guess = input('Enter a letter to guess: ').strip().lower()
 
-            # Input validation
-            if not guess.isalpha():
-                print('Enter only a LETTER')
-                continue
-            elif len(guess) > 1:
-                print('Enter only a SINGLE letter')
-                continue
-            elif guess in letterGuessed:
-                print('You have already guessed that letter')
-                continue
+        # Input validation
+        if not guess.isalpha():
+            print('Enter only a LETTER')
+            continue
+        elif len(guess) > 1:
+            print('Enter only a SINGLE letter')
+            continue
+        elif guess in letterGuessed:
+            print('You have already guessed that letter')
+            continue
 
-            # Add guessed letter to list
-            if guess in word:
-                letterGuessed += guess
+        letterGuessed.add(guess)
 
-            # Print current word progress
-            for char in word:
-                if char in letterGuessed and (Counter(letterGuessed) != Counter(word)):
-                    print(char, end=' ')
-                    correct += 1
-                elif Counter(letterGuessed) == Counter(word):  # All letters guessed
-                    print("\nThe word is:", word)
-                    flag = 1
-                    print('Congratulations, You won!')
-                    break
-                else:
-                    print('_', end=' ')
+        # Check if guessed letter is in the word
+        if guess in correct_letters:
+            print("Correct guess!")
+        else:
+            print("Wrong guess!")
+            chances -= 1  # Reduce chances only if the guess is incorrect
 
-        # If user runs out of chances
-        if chances <= 0 and (Counter(letterGuessed) != Counter(word)):
-            print("\nYou lost! Try again.")
-            print(f'The word was: {word}')
+        # Print current word progress
+        display_word = ''.join([char if char in letterGuessed else '_' for char in word])
+        print(' '.join(display_word))
 
-    except KeyboardInterrupt:
-        print("\nGame interrupted. Try again later.")
-        exit()
+        # Check if player has guessed all letters
+        if set(display_word) == correct_letters:
+            print("\nCongratulations! You guessed the word:", word)
+            return
+
+    # If player runs out of chances
+    print("\nYou lost! The word was:", word)
 
 if __name__ == '__main__':
     hangman_game()
