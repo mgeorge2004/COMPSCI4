@@ -1,0 +1,39 @@
+def bubble_sort_ascending(arr):
+    """Sorts a list in ascending order using Bubble Sort."""
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if arr[j] > arr[j + 1]:  # Swap if the element is greater than the next one
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    return arr
+
+def bubble_sort_descending(arr):
+    """Sorts a list in descending order using Bubble Sort."""
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if arr[j] < arr[j + 1]:  # Swap if the element is smaller than the next one
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+    return arr
+
+def get_user_numbers():
+    """Gets a list of numbers from the user."""
+    while True:
+        try:
+            user_input = input("Enter a list of numbers separated by spaces: ")
+            numbers = [float(num) for num in user_input.split()]
+            return numbers
+        except ValueError:
+            print("Invalid input. Please enter numbers only.")
+
+def main():
+    numbers = get_user_numbers()
+
+    ascending_sorted = bubble_sort_ascending(numbers[:])  # Use a copy of the list
+    descending_sorted = bubble_sort_descending(numbers[:])  # Use a copy of the list
+
+    print("\nSorted in Ascending Order:", ascending_sorted)
+    print("Sorted in Descending Order:", descending_sorted)
+
+if __name__ == "__main__":
+    main()
