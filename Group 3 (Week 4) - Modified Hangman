@@ -1,0 +1,85 @@
+import random
+from collections import Counter
+
+# Word categories
+word_categories = {
+    'fruits': ['apple', 'banana', 'mango', 'strawberry', 'orange', 'grape', 'pineapple',
+               'apricot', 'lemon', 'coconut', 'watermelon', 'cherry', 'papaya', 'berry',
+               'peach', 'lychee', 'muskmelon'],
+    
+    'animals': ['elephant', 'tiger', 'lion', 'giraffe', 'zebra', 'kangaroo', 'panda',
+                'rhinoceros', 'crocodile', 'hippopotamus', 'dolphin', 'leopard', 'cheetah',
+                'buffalo', 'jaguar', 'chimpanzee', 'flamingo'],
+    
+    'sports': ['soccer', 'basketball', 'tennis', 'cricket', 'hockey', 'baseball', 'rugby',
+               'golf', 'volleyball', 'badminton', 'swimming', 'cycling', 'wrestling',
+               'archery', 'karate', 'gymnastics', 'skateboarding']
+}
+
+def choose_category():
+    print("Choose a category: Fruits, Animals, or Sports")
+    while True:
+        category = input("Enter your choice: ").strip().lower()
+        if category in word_categories:
+            return category
+        print("Invalid choice. Please enter 'Fruits', 'Animals', or 'Sports'.")
+
+def hangman_game():
+    category = choose_category()
+    word = random.choice(word_categories[category])
+
+    print(f'\nGuess the word! HINT: It is related to {category.capitalize()}.')
+
+    print('_ ' * len(word))  # Display blanks for the word
+
+    playing = True
+    letterGuessed = ''
+    chances = len(word) + 2
+    correct = 0
+    flag = 0
+
+    try:
+        while (chances > 0) and flag == 0:
+            print()
+            chances -= 1
+            guess = input('Enter a letter to guess: ').strip().lower()
+
+            # Input validation
+            if not guess.isalpha():
+                print('Enter only a LETTER')
+                continue
+            elif len(guess) > 1:
+                print('Enter only a SINGLE letter')
+                continue
+            elif guess in letterGuessed:
+                print('You have already guessed that letter')
+                continue
+
+            # Add guessed letter to list
+            if guess in word:
+                letterGuessed += guess
+
+            # Print current word progress
+            for char in word:
+                if char in letterGuessed and (Counter(letterGuessed) != Counter(word)):
+                    print(char, end=' ')
+                    correct += 1
+                elif Counter(letterGuessed) == Counter(word):  # All letters guessed
+                    print("\nThe word is:", word)
+                    flag = 1
+                    print('Congratulations, You won!')
+                    break
+                else:
+                    print('_', end=' ')
+
+        # If user runs out of chances
+        if chances <= 0 and (Counter(letterGuessed) != Counter(word)):
+            print("\nYou lost! Try again.")
+            print(f'The word was: {word}')
+
+    except KeyboardInterrupt:
+        print("\nGame interrupted. Try again later.")
+        exit()
+
+if __name__ == '__main__':
+    hangman_game()
