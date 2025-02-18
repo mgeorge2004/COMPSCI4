@@ -1,0 +1,14 @@
+def comma_code(items):
+    if not items:  # If the list is empty, return an empty string
+        return ""
+    elif len(items) == 1:  # If there's only one item, return it as is
+        return items[0]
+    else:
+        return ", ".join(items[:-1]) + ", and " + items[-1]  # Join all except last, then add "and"
+
+# Test cases
+print(comma_code(['apples', 'bananas', 'tofu', 'cats']))  # Expected: 'apples, bananas, tofu, and cats'
+print(comma_code([]))  # Expected: ''
+print(comma_code(['apple']))  # Expected: 'apple'
+print(comma_code(['apple', 'banana']))  # Expected: 'apple and banana'
+print(comma_code(['a', 'b', 'c', 'd', 'e', 'f']))  # Expected: 'a, b, c, d, e, and f'
