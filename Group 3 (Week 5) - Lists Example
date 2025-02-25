@@ -1,0 +1,30 @@
+# Simple To-Do List
+to_do_list = []
+
+while True:
+    print("\nTo-Do List")
+    for i, task in enumerate(to_do_list, 1):
+        print(f"{i}. {task}")
+
+    print("\nOptions: (1) Add Task  (2) Remove Task  (3) Exit")
+    choice = input("Choose an option: ").strip()
+
+    if choice == "1":
+        task = input("Enter a new task: ").strip()
+        to_do_list.append(task)
+        print(f"Added: {task}")
+    
+    elif choice == "2":
+        try:
+            task_num = int(input("Enter task number to remove: ")) - 1
+            removed_task = to_do_list.pop(task_num)
+            print(f"Removed: {removed_task}")
+        except (IndexError, ValueError):
+            print("Invalid task number.")
+    
+    elif choice == "3":
+        print("Goodbye!")
+        break
+    
+    else:
+        print("Invalid option, try again.")
