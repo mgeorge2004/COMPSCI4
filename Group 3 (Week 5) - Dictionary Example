@@ -1,0 +1,10 @@
+# Simple phone book using a dictionary
+phone_book = {
+    "Alice": "555-134-4895",
+    "Bob": "555-567-2332",
+    "Charlie": "555-765-8791"
+}
+
+# Ask user for name & retrieve corresponding phone number
+name = input("Enter a name to get the phone number: ")
+print("Phone number:", phone_book.get(name, "Not found"))
