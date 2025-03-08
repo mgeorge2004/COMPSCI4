@@ -1,0 +1,46 @@
+import re
+import os
+
+def regex_search(pattern, directory="."):
+    regex = re.compile(pattern)
+    matches = []
+
+    for filename in os.listdir(directory):
+        if filename.endswith(".txt"):
+            with open(os.path.join(directory, filename), "r") as file:
+                for line_num, line in enumerate(file, start=1):
+                    if regex.search(line):
+                        matches.append(f"{filename} (Line {line_num}): {line.strip()}")
+
+    return matches
+
+# Test cases
+def test_regex_search():
+    test_cases = [
+        (r"\bthe\b", "Find exact match for 'the'"),  # Matches 'the' as a whole word
+        (r"\d+", "Find all numbers"),  # Matches any number
+        (r"error|fail|warning", "Find common error messages"),  # Matches words like 'error', 'fail', or 'warning'
+        (r"@\w+\.\w+", "Find email addresses"),  # Matches basic email formats
+        (r"^[A-Z].*", "Find lines that start with a capital letter")  # Matches lines beginning with an uppercase letter
+    ]
+
+    for pattern, description in test_cases:
+        print(f"\nTest: {description}")
+        matches = regex_search(pattern)
+        if matches:
+            print("\n".join(matches))
+        else:
+            print("No matches found.")
+
+if __name__ == "__main__":
+    mode = input("Enter 'test' to run test cases or 'search' to enter a custom regex: ").strip().lower()
+    
+    if mode == "test":
+        test_regex_search()
+    elif mode == "search":
+        user_pattern = input("Enter a regular expression pattern to search for: ")
+        results = regex_search(user_pattern)
+        if results:
+            print("\n".join(results))
+        else:
+            print("No matches found.")
